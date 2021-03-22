@@ -1,0 +1,106 @@
+<ListItemWithCheckbox>:
+    # Описание кастомного элемента списка
+    id: f_but
+    on_press:
+        app.updateTaskStart(f_but)
+    RightCheckbox:
+        on_active: app.on_checkbox_active(*args, f_but)
+
+# Менеджер экранов, описывающих их количество и названия
+ScreenManager:
+    StartScreen:
+    AddTaskScreen:
+    UpdateTaskScreen:
+
+# Разметка стартового экрана
+<StartScreen>:
+    name: 'StartScreen'
+    BoxLayout:
+        orientation: "vertical"
+
+        MDToolbar:
+            title: 'Task Manager'
+            right_action_items: [["delete", lambda x: app.delete_done_list()]]
+
+
+        ScrollView:
+            pos_hint: {"center_x": .5}
+            MDList:
+                id: my_list
+
+        MDBoxLayout:
+            adaptive_height: True
+            orientation: "vertical"
+
+            MDBoxLayout:
+                id: box
+                padding: "10dp"
+                adaptive_size: True
+                spacing: "10dp"
+                orientation: "vertical"
+                pos_hint: {"right": 1}
+
+                MDBoxLayout:
+                    adaptive_width: True
+                    size_hint_y: None
+                    height: "56dp"
+                    spacing: "10dp"
+                    pos_hint: {"center_x": .5}
+
+                    MDFloatingActionButton:
+                        icon: "plus"
+                        opposite_colors: True
+                        elevation: 8
+                        md_bg_color: 1, 1, 1, 1
+                        on_press:
+                            root.manager.current = 'AddTaskScreen'
+
+# Разметка экрана добавления элемента
+<AddTaskScreen>:
+    name: 'AddTaskScreen'
+    MDBoxLayout
+        orientation: "vertical"
+
+        MDToolbar:
+            title: 'Adding a task'
+            left_action_items:[["arrow-left", lambda x: app.change_screen("StartScreen") ]]
+
+        Screen:
+
+            MDTextField:
+                id : task_text
+                size_hint:(0.7,0.1)
+                pos_hint:{'center_x':0.5,'center_y':0.55}
+                hint_text:'Enter your task '
+
+
+            MDRaisedButton:
+                text:'Add task'
+                pos_hint: {'center_x':0.5,'center_y':0.35}
+                on_press:
+                    app.addTask()
+
+# Разметка обновления экрана
+<UpdateTaskScreen>:
+    name: 'UpdateTaskScreen'
+    MDBoxLayout
+        orientation: "vertical"
+
+        MDToolbar:
+            title: 'Updating a task'
+            left_action_items:[["arrow-left", lambda x: app.change_screen("StartScreen") ]]
+
+        Screen:
+
+            MDTextField:
+                id : update_task_text
+                size_hint:(0.7,0.1)
+                pos_hint:{'center_x':0.5,'center_y':0.55}
+                hint_text:'Enter your task '
+
+
+            MDRaisedButton:
+                text:'Update task'
+                pos_hint: {'center_x':0.5,'center_y':0.35}
+                on_press:
+                    app.updateTaskFinish()
