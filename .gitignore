@@ -341,3 +341,4 @@ pip-selfcheck.json
 .buildozer
 !bin
 !buildozer.spec
+.idea
