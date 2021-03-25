@@ -1,10 +1,16 @@
+import os
+
 from kivy.lang import Builder
+from kivy.storage.jsonstore import JsonStore
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivymd.app import MDApp
 from kivymd.uix.list import IRightBodyTouch, OneLineRightIconListItem
 from kivymd.uix.selectioncontrol import MDCheckbox
 from kivymd.uix.snackbar import Snackbar
 
+
+app_folder = os.path.dirname(os.path.abspath(__file__))
+storage = os.path.join(app_folder, 'Data.json')
 
 # Создание трёх экранов, наследуемых от базового
 class StartScreen(Screen):
@@ -28,12 +34,12 @@ sm.add_widget(UpdateTaskScreen(name='UpdateTaskScreen'))
 
 # Создание элемента списка с иконкой справа
 class ListItemWithCheckbox(OneLineRightIconListItem):
-    '''Custom list item.'''
+    """Custom list item."""
 
 
 # Создание чекбокса для правой части
 class RightCheckbox(IRightBodyTouch, MDCheckbox):
-    '''Custom right container.'''
+    """Custom right container."""
 
 
 class MyApp(MDApp):
@@ -46,6 +52,41 @@ class MyApp(MDApp):
         # Активация разметки
         self.style = Builder.load_file('style.kv')
         return self.style
+
+    def save_data(self):
+        save_list = self.style.get_screen('StartScreen').ids.my_list.children[::-1]
+        store = JsonStore(storage)
+        store.clear()
+        for key in save_list:
+            if isinstance(key, ListItemWithCheckbox):
+                store.put(str(key), text=key.text, checkbox=key.children[0].children[0].active)
+
+    def load_data(self):
+        store = JsonStore(storage)
+        if store.count() > 0:
+            for key in store:
+                item = ListItemWithCheckbox(text=store[key]['text'])
+                item.children[0].children[0].active = store[key]['checkbox']
+                self.style.get_screen('StartScreen').ids.my_list.add_widget(
+                    item
+                )
+
+    def on_start(self):
+        try:
+            self.load_data()
+        except FileNotFoundError:
+            pass
+        super().on_start()
+
+    def on_stop(self):
+        self.save_data()
+        super().on_stop()
+
+    def on_pause(self):
+        return super().on_pause()
+
+    def on_resume(self):
+        super().on_resume()
 
     def change_screen(self, screen):
         # Функция перехода на экран screen

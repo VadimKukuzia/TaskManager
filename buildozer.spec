@@ -28,7 +28,7 @@ source.include_exts = py,png,jpg,kv,atlas
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 0.3
+version = 0.4
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
@@ -88,7 +88,7 @@ fullscreen = 0
 #android.presplash_lottie = "path/to/lottie/file.json"
 
 # (list) Permissions
-#android.permissions = INTERNET
+android.permissions = WRITE_EXTERNAL_STORAGE
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host
