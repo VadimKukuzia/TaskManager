@@ -83,6 +83,7 @@ class MyApp(MDApp):
         super().on_stop()
 
     def on_pause(self):
+        self.save_data()
         return super().on_pause()
 
     def on_resume(self):

@@ -7,7 +7,7 @@ title = Task Manager
 package.name = taskManager
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.test
+package.domain = org.taskManager
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -28,7 +28,7 @@ source.include_exts = py,png,jpg,kv,atlas
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 0.4
+version = 0.5
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
@@ -109,7 +109,7 @@ android.permissions = WRITE_EXTERNAL_STORAGE
 #android.ndk_api = 21
 
 # (bool) Use --private data storage (True) or --dir public storage (False)
-#android.private_storage = True
+# android.private_storage = True
 
 # (str) Android NDK directory (if empty, it will be automatically downloaded.)
 #android.ndk_path =
@@ -180,7 +180,7 @@ android.permissions = WRITE_EXTERNAL_STORAGE
 #android.add_packaging_options =
 
 # (list) Java classes to add as activities to the manifest.
-#android.add_activities = com.example.ExampleActivity
+# android.add_activities = com.taskmanager.TaskManagerActivity
 
 # (str) OUYA Console category. Should be one of GAME or APP
 # If you leave this blank, OUYA support will not be enabled
