@@ -8,9 +8,9 @@ from kivymd.uix.list import IRightBodyTouch, OneLineRightIconListItem
 from kivymd.uix.selectioncontrol import MDCheckbox
 from kivymd.uix.snackbar import Snackbar
 
-
 app_folder = os.path.dirname(os.path.abspath(__file__))
 storage = os.path.join(app_folder, 'Data.json')
+
 
 # Создание трёх экранов, наследуемых от базового
 class StartScreen(Screen):
